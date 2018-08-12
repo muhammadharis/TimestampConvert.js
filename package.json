@@ -17,8 +17,9 @@
     "time",
     "date"
   ],
+
   "author": "Muhammad Haris",
   "license": "MIT",
-  "repository": "muhammadharis/TimestampConvert.js",
+  "repository": "muhammadharis/TimestampConvert.js"
 
 }
