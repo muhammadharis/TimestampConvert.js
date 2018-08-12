@@ -1,0 +1,14 @@
+{
+  "name": "timezonejs",
+  "version": "1.0.0",
+  "description": "A Javascript Library to easily convert UNIX timestamps with real world timezones",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "demo"
+  ],
+  "author": "Muhammad Haris",
+  "license": "ISC"
+}
