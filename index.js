@@ -18,11 +18,11 @@ module.exports.getTime = function(twelveHourFormat){
 }
 
 module.exports.convert = function(unixTimestamp, twelveHourFormat){
-  console.log(unixTimestamp)
+  //console.log(unixTimestamp)
   var daysCompletedSince1970  = Math.floor(unixTimestamp/86400000);
   var dayOfTheWeekNumber = (daysCompletedSince1970 % 7 +4)%7 +1;
   //console.log('day of the week: '+dayOfTheWeekNumber);
-  console.log('days since 1970: '+daysCompletedSince1970);
+  //console.log('days since 1970: '+daysCompletedSince1970);
   var dayOfTheWeek;
   switch(dayOfTheWeekNumber){
     case 1: dayOfTheWeek="Sunday"; break;
