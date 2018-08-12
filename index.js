@@ -10,11 +10,33 @@ function formatNumberForTime(number, numOfDigitsRequired){
   }
   return number;
 }
+
+module.exports.getLocalTime = function(twelveHourFormat){
+  var date = new Date();
+  
+  //We simply subtract the offset in milliseconds between GMT and the local time
+  var unixTimestamp = date.getTime() - date.getTimezoneOffset()*60000;
+  if(twelveHourFormat){
+    return this.convert(unixTimestamp, true);
+  }
+  return this.convert(unixTimestamp, false);
+}
+
 module.exports.getTime = function(twelveHourFormat, hourOffset, minuteOffset){
   if(twelveHourFormat){
     return this.convert(new Date().getTime(), true, hourOffset, minuteOffset);
   }
   return this.convert(new Date().getTime(), false, hourOffset, minuteOffset);
+}
+
+module.exports.convertToLocalTime = function(unixTimestamp, twelveHourFormat){
+  var date = new Date();
+  var adjustedUnixTimestamp = unixTimestamp - date.getTimezoneOffset()*60000;
+
+  if(twelveHourFormat){
+    return this.convert(adjustedUnixTimestamp, true);
+  }
+  return this.convert(adjustedUnixTimestamp, false);
 }
 
 module.exports.convert = function(unixTimestamp, twelveHourFormat, hourOffset, minuteOffset){
