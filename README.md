@@ -9,13 +9,13 @@ npm install timestampconvertjs --save-dev
 ```
 
 ## Methods
-There are a few methods offered by this library
-### getTime
+There are a few methods offered by this library:
+* ### getTime
 ```js
     function getTime(twelveHourFormat, hourOffset, minuteOffset)
 ```
 Returns an output object with the current time in GMT, with an optional hour and minute offset which can be used to convert to any time-zone in the world.
-  * **twelveHourFormat**: A boolean - True if the time should be formatted in twelve hour format, false otherwise
+  * **twelveHourFormat**: A boolean - true if the time should be formatted in twelve-hour format, false otherwise
   * **hourOffset** *(optional)*: The number of hours to offset from GMT or UTC (For example, EST New York Time would have hourOffset of -4)
   * **minuteOffset** *(optional)*: The number of minutes to offset from GMT or UTC (Very uncommon, but for example, Kathmandu time is GMT+5:45 so hourOffset would be 5, and minuteOffset would be 45)
 
