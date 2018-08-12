@@ -7,8 +7,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "demo"
+    "demo",
+    "timestamp",
+    "convert",
+    "timezone",
+    "conversion",
+    "unix",
+    "library",
+    "time",
+    "date"
   ],
   "author": "Muhammad Haris",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "muhammadharis/TimestampConvert.js",
+
 }
