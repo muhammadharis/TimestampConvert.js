@@ -1,5 +1,5 @@
 {
-  "name": "timestampjs",
+  "name": "timestampconvertjs",
   "version": "1.0.0",
   "description": "A lightweight Javascript Library to easily convert UNIX timestamps with real world timezones",
   "main": "index.js",
