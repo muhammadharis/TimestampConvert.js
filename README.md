@@ -2,7 +2,7 @@
 A lightweight Javascript Library to easily convert UNIX timestamps to JSON-based real world timezones
 
 ## Installation
-The library is part of the npm package registry, and can be easily installed to a Node.js project:
+This module is part of the npm package registry, and can be easily installed to a Node.js project:
 
 ```sh
 npm install timestampconvertjs --save-dev
