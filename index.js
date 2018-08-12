@@ -1,6 +1,3 @@
-//1533959360363
-//1533868921181
-//1534029236377
 function isLeapYear(year){
   return year%4==0 &&(year%100!=0 || year%400==0);
 }
@@ -8,7 +5,7 @@ module.exports.getTime = function(){
   return this.convert(new Date().getTime());
 }
 
-module.exports.convert = function(unixTimestamp){
+module.exports.convert = function(unixTimestamp, twelveHourFormat){
   var daysCompletedSince1970  = Math.floor(unixTimestamp/86400000);
   var dayOfTheWeekNumber = (daysCompletedSince1970 % 7 +4)%7 +1;
   //console.log('day of the week: '+dayOfTheWeekNumber);
@@ -116,7 +113,7 @@ module.exports.convert = function(unixTimestamp){
   var millisecondsLeftInDay = unixTimestamp - daysCompletedSince1970*86400000
   var secondsLeftInDay = millisecondsLeftInDay/1000;
   var minutesLeftInDay = secondsLeftInDay/60;
-  var hoursLeftInDay = minutesLeftInDay/60;
+  var hoursLeftInDay = Math.floor(minutesLeftInDay/60);
   /*console.log('milliseconds left: '+millisecondsLeftInDay);
   console.log('minutes left in day: '+minutesLeftInDay);
   console.log('final time\'s milliseconds: '+Math.floor(millisecondsLeftInDay%1000));
@@ -124,6 +121,7 @@ module.exports.convert = function(unixTimestamp){
   console.log('final time\'s minutes: '+Math.floor(minutesLeftInDay%60));
   console.log('final time\'s hours: '+Math.floor(hoursLeftInDay));
 */
+  
   var finalReturnObject = {
     'year' : year,
     'monthName': finalMonthName,
@@ -131,10 +129,25 @@ module.exports.convert = function(unixTimestamp){
     'dayOfTheWeekNumber' : dayOfTheWeekNumber,
     'dayOfTheWeek' : dayOfTheWeek,
     'day' : finalDay,
-    'hours' : Math.floor(hoursLeftInDay),
+    'hours' : hoursLeftInDay,
     'minutes': Math.floor(minutesLeftInDay%60),
     'seconds' : Math.floor(secondsLeftInDay%60),
-    'milliseconds' : Math.floor(millisecondsLeftInDay%1000)
+    'milliseconds' : Math.floor(millisecondsLeftInDay%1000),
+  }
+
+  //Extra logic for 12-hour format
+  if(twelveHourFormat){
+    if(hoursLeftInDay>=12){
+      finalReturnObject["period"] = "PM";
+    }
+    else{
+      finalReturnObject["period"] = "AM";
+    }
+    hoursLeftInDay%=12;
+    if(hoursLeftInDay==0){ //Since 12%12 = 0, but we expect 12 am/pm
+      hoursLeftInDay=12;
+    }
+    finalReturnObject["hours"] = hoursLeftInDay;
   }
   return finalReturnObject;
 }
