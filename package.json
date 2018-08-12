@@ -1,6 +1,6 @@
 {
   "name": "timestampconvertjs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A lightweight Javascript Library to easily convert UNIX timestamps to real world timezones",
   "main": "index-minified.js",
   "scripts": {
@@ -17,9 +17,7 @@
     "time",
     "date"
   ],
-
   "author": "Muhammad Haris",
   "license": "MIT",
   "repository": "muhammadharis/TimestampConvert.js"
-
 }
