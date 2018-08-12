@@ -10,20 +10,27 @@ function formatNumberForTime(number, numOfDigitsRequired){
   }
   return number;
 }
-module.exports.getTime = function(twelveHourFormat){
+module.exports.getTime = function(twelveHourFormat, hourOffset, minuteOffset){
   if(twelveHourFormat){
-    return this.convert(new Date().getTime(), true);
+    return this.convert(new Date().getTime(), true, hourOffset, minuteOffset);
   }
-  return this.convert(new Date().getTime());
+  return this.convert(new Date().getTime(), false, hourOffset, minuteOffset);
 }
 
-module.exports.convert = function(unixTimestamp, twelveHourFormat){
-  //console.log(unixTimestamp)
+module.exports.convert = function(unixTimestamp, twelveHourFormat, hourOffset, minuteOffset){
+
+  //Adjusting the timestamp with offsets if they exist (this automatically takes care of the date as well)
+  if(hourOffset){
+    unixTimestamp += hourOffset*3600000;
+  }
+  if(minuteOffset){
+    unixTimestamp += minuteOffset*60000;
+  }
+
   var daysCompletedSince1970  = Math.floor(unixTimestamp/86400000);
   var dayOfTheWeekNumber = (daysCompletedSince1970 % 7 +4)%7 +1;
-  //console.log('day of the week: '+dayOfTheWeekNumber);
-  //console.log('days since 1970: '+daysCompletedSince1970);
   var dayOfTheWeek;
+
   switch(dayOfTheWeekNumber){
     case 1: dayOfTheWeek="Sunday"; break;
     case 2: dayOfTheWeek="Monday"; break;
@@ -34,10 +41,10 @@ module.exports.convert = function(unixTimestamp, twelveHourFormat){
     case 7: dayOfTheWeek="Saturday"; break;
   }
 
-
-
   var daysLeftInCurrentYear = daysCompletedSince1970;
   var year = 1970;
+
+  //Getting the number of years passed since 1970 and the day # of the current year
   while(true){
     if(isLeapYear(year)){
       if(daysLeftInCurrentYear-366<0){
@@ -57,8 +64,7 @@ module.exports.convert = function(unixTimestamp, twelveHourFormat){
     }
     year++;
   }
-  //console.log(year);
-  //console.log(daysLeftInCurrentYear);
+
   var finalMonthNumber;
   var finalDay = daysLeftInCurrentYear + 1; //Since our original calculation was days COMPLETED and hence the floor() but the actual current day is always 1 more than that
 
@@ -120,19 +126,10 @@ module.exports.convert = function(unixTimestamp, twelveHourFormat){
     case 12: finalMonthName="December"; break;
   }
 
-  /*console.log('month number: '+finalMonthNumber);
-  console.log('month name: '+finalMonthName)
-  console.log('day: '+ finalDay);*/
   var millisecondsLeftInDay = unixTimestamp - daysCompletedSince1970*86400000
   var secondsLeftInDay = millisecondsLeftInDay/1000;
   var minutesLeftInDay = secondsLeftInDay/60;
   var hoursLeftInDay = Math.floor(minutesLeftInDay/60);
-  /*console.log('milliseconds left: '+millisecondsLeftInDay);
-  console.log('minutes left in day: '+minutesLeftInDay);
-  console.log('final time\'s milliseconds: '+Math.floor(millisecondsLeftInDay%1000));
-  console.log('final time\'s seconds: '+Math.floor(secondsLeftInDay%60));
-  console.log('final time\'s minutes: '+Math.floor(minutesLeftInDay%60));
-  console.log('final time\'s hours: '+Math.floor(hoursLeftInDay));*/
 
   var finalMinutes = Math.floor(minutesLeftInDay%60);
   var finalSeconds = Math.floor(secondsLeftInDay%60);
