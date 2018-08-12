@@ -1,15 +1,28 @@
 function isLeapYear(year){
   return year%4==0 &&(year%100!=0 || year%400==0);
 }
-module.exports.getTime = function(){
+function formatNumberForTime(number, numOfDigitsRequired){
+  var len = (number+'').length;
+  if(len<numOfDigitsRequired){
+    for(var i = 0; i<numOfDigitsRequired-len; i++){
+      number = '0'+number;
+    }
+  }
+  return number;
+}
+module.exports.getTime = function(twelveHourFormat){
+  if(twelveHourFormat){
+    return this.convert(new Date().getTime(), true);
+  }
   return this.convert(new Date().getTime());
 }
 
 module.exports.convert = function(unixTimestamp, twelveHourFormat){
+  console.log(unixTimestamp)
   var daysCompletedSince1970  = Math.floor(unixTimestamp/86400000);
   var dayOfTheWeekNumber = (daysCompletedSince1970 % 7 +4)%7 +1;
   //console.log('day of the week: '+dayOfTheWeekNumber);
-  //console.log('days since 1970: '+daysCompletedSince1970);
+  console.log('days since 1970: '+daysCompletedSince1970);
   var dayOfTheWeek;
   switch(dayOfTheWeekNumber){
     case 1: dayOfTheWeek="Sunday"; break;
@@ -119,8 +132,11 @@ module.exports.convert = function(unixTimestamp, twelveHourFormat){
   console.log('final time\'s milliseconds: '+Math.floor(millisecondsLeftInDay%1000));
   console.log('final time\'s seconds: '+Math.floor(secondsLeftInDay%60));
   console.log('final time\'s minutes: '+Math.floor(minutesLeftInDay%60));
-  console.log('final time\'s hours: '+Math.floor(hoursLeftInDay));
-*/
+  console.log('final time\'s hours: '+Math.floor(hoursLeftInDay));*/
+
+  var finalMinutes = Math.floor(minutesLeftInDay%60);
+  var finalSeconds = Math.floor(secondsLeftInDay%60);
+  var finalMilliseconds = Math.floor(millisecondsLeftInDay%1000);
   
   var finalReturnObject = {
     'year' : year,
@@ -130,11 +146,11 @@ module.exports.convert = function(unixTimestamp, twelveHourFormat){
     'dayOfTheWeek' : dayOfTheWeek,
     'day' : finalDay,
     'hours' : hoursLeftInDay,
-    'minutes': Math.floor(minutesLeftInDay%60),
-    'seconds' : Math.floor(secondsLeftInDay%60),
-    'milliseconds' : Math.floor(millisecondsLeftInDay%1000),
+    'minutes': finalMinutes,
+    'seconds' : finalSeconds,
+    'milliseconds' : finalMilliseconds,
+    
   }
-
   //Extra logic for 12-hour format
   if(twelveHourFormat){
     if(hoursLeftInDay>=12){
@@ -149,5 +165,9 @@ module.exports.convert = function(unixTimestamp, twelveHourFormat){
     }
     finalReturnObject["hours"] = hoursLeftInDay;
   }
+
+  //Adding final formatted time
+  finalReturnObject['formattedTime'] = hoursLeftInDay+':'+formatNumberForTime(finalMinutes,2)+':'+formatNumberForTime(finalSeconds,2)+'.'+formatNumberForTime(finalMilliseconds,3);
+
   return finalReturnObject;
 }
