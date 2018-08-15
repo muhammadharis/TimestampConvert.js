@@ -73,9 +73,9 @@ var currTime = ts.getTime(true, -4); //Returns NY time (4 hours behind GMT) in 1
 var convertedTime = ts.convert(customUnixTimestamp, false); //Returns converted GMT time in 24-hr format
 
 //getLocalTime() usage
-var currTimeLocal = ts.getTime(true); //Returns current time in local timezone in 12-hr format
+var currTimeLocal = ts.getLocalTime(true); //Returns current time in local timezone in 12-hr format
 
 //convertToLocalTime() usage
-var convertedTimeLocal = ts.convert(customUnixTimestamp, false); //Returns converted time in local timezone in 24-hr format
+var convertedTimeLocal = ts.convertToLocalTime(customUnixTimestamp, false); //Returns converted time in local timezone in 24-hr format
 
 ```
