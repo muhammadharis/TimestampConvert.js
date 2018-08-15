@@ -64,6 +64,7 @@ the 'period' attribute only appears when ***twelveHourFormat*** is set to true.
 ```js
 var ts = require('timestampconvertjs');
 var customUnixTimestamp = 1451606400000; //Sunday, August 12, 2018 1:05:31 AM
+//or var customUnixTimestamp = new Date().getTime(); (To get current time in GMT)
 
 //getTime() usage
 var currTime = ts.getTime(true, -4); //Returns NY time (4 hours behind GMT) in 12-hr format
