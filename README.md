@@ -1,6 +1,8 @@
 # TimestampConvert.js
 A lightweight Javascript Library to easily convert UNIX timestamps to JSON-based real world timezones
 
+[![npm version](https://badge.fury.io/js/timestampconvertjs.svg)](https://badge.fury.io/js/timestampconvertjs)
+
 ## Installation
 This module is part of the npm package registry, and can be easily installed to a Node.js project:
 
